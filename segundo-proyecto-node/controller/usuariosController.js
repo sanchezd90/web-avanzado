@@ -6,17 +6,15 @@ const Usuario = require('../models/Usuarios')
 const jwt = require('jsonwebtoken')
 
 exports.crearUsuario = async (req,res) => {
-    console.log(req.body);
 
+    //validar datos ingresados
     const error = validationResult(req);
-
     if (!error.isEmpty()) {
         return res.status(400).json({errores: error.array()})
     }
 
     try{
-        const {email, password} = req.body;
-        console.log("email y pass del body",email,password);
+        const {email, password} = req.body;        
 
         //validar que el usuario registrado sea único
         let usuario = await Usuario.findOne({email});        
@@ -25,12 +23,11 @@ exports.crearUsuario = async (req,res) => {
         }
 
         usuario = new Usuario(req.body);
-        // hashear el password. Primero hacer un salt
+        // hashear el password. Primero hace un salt y luego reescribe
         const salt = await bcryptjs.genSalt(10);
-
-        // reescribir nuestro password
         usuario.password = await bcryptjs.hash(password,salt);
 
+        //guardar el usuario
         await usuario.save()
 
         // crear y firmar jwt
