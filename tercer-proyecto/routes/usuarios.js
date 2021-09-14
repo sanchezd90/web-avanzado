@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const model = require('./../models/usuarios');
+const {validateRegistro} = require('./../middlewares/usuarios');
+const sha1 = require('sha1');
 
 const get = (req,res) => {
   model.getAll()
@@ -35,7 +37,7 @@ const eliminar = (req,res) => {
 
 router.get('/',get);
 router.get('/single/:id',single);
-router.post('/create',create);
+router.post('/create',validateRegistro,create);
 router.post('/update/:id',update);
 router.post('/delete/:id',eliminar);
 
