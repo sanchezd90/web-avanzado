@@ -8,7 +8,10 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const pruebasRouter = require('./routes/pruebas');
+const usuariosRouter = require('./routes/usuarios');
+const propositosRouter = require('./routes/propositos');
+const dominiosRouter = require('./routes/dominios');
 
 const app = express();
 
@@ -23,7 +26,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/pruebas', pruebasRouter);
+app.use('/usuarios', usuariosRouter);
+app.use('/propositos', propositosRouter);
+app.use('/dominios', dominiosRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
