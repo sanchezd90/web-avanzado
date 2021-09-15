@@ -3,6 +3,7 @@ const router = express.Router();
 const model = require('./../models/usuarios');
 const {validateRegistro} = require('./../middlewares/usuarios');
 const sha1 = require('sha1');
+const {v4: uuid} = require('uuid');
 
 const get = (req,res) => {
   model.getAll()
@@ -11,7 +12,18 @@ const get = (req,res) => {
 }
 
 const create = (req,res) => {
-  model.create(req.body)
+  const usuario = req.body;
+  const uid = uuid();
+  const usuarioFinal = { 
+    username: usuario.username,
+    pass: sha1(usuario.pass),
+    email: usuario.email,
+    confirmacionCorreo: uid,
+  }
+
+  console.log(get())
+
+  model.create(usuarioFinal)
   .then((response) => res.status(200).json(response))
   .catch((err) => res.status(500).json(err))
 }
@@ -37,7 +49,7 @@ const eliminar = (req,res) => {
 
 router.get('/',get);
 router.get('/single/:id',single);
-router.post('/create',validateRegistro,create);
+router.post('/registro',validateRegistro,create);
 router.post('/update/:id',update);
 router.post('/delete/:id',eliminar);
 
