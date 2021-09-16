@@ -11,7 +11,8 @@ const get = (req,res) => {
   .catch((err) => res.status(500).json(err))
 }
 
-const create = (req,res) => {
+
+const register = (req,res) => {  
   const usuario = req.body;
   const uid = uuid();
   const usuarioFinal = { 
@@ -20,8 +21,6 @@ const create = (req,res) => {
     email: usuario.email,
     confirmacionCorreo: uid,
   }
-
-  console.log(get())
 
   model.create(usuarioFinal)
   .then((response) => res.status(200).json(response))
@@ -40,7 +39,7 @@ const update = (req,res) => {
   .catch((err) => res.status(500).json(err))
 }
 
-const eliminar = (req,res) => {
+const del = (req,res) => {
   model.update(req.params.id,{'deleted':1})
   .then((response) => res.status(200).json(response))
   .catch((err) => res.status(500).json(err))
@@ -49,8 +48,8 @@ const eliminar = (req,res) => {
 
 router.get('/',get);
 router.get('/single/:id',single);
-router.post('/registro',validateRegistro,create);
+router.post('/register',validateRegistro,register);
 router.post('/update/:id',update);
-router.post('/delete/:id',eliminar);
+router.post('/del/:id',del);
 
 module.exports = router;
