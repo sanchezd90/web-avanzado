@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const model = require('./../models/dominios');
+const dbService = require('../utils/dbService');
 
 const get = (req,res) => {
-  model.getAll()
+  dbService.getAll('denominacion_dominios')
   .then((response) => res.status(200).json(response))
   .catch((err) => res.status(500).json(err))
 }

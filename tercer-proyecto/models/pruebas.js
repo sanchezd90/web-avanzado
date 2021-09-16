@@ -1,14 +1,14 @@
 const bd = require('../utils/bd');
+const dbService = require('../utils/dbService');
 
-const getAll = () => bd('pruebas')
-.select();
+const getAll = () => dbService.getAll('pruebas');
+
+const single = (id) => dbService.single('pruebas',id);
+
+const joinPruebasDenominaciones = () => dbService.innerJoin('pruebas','denominaciones','dominio_principal','id')
 
 const create = (obj) => bd('pruebas')
 .insert(obj);
-
-const single = (id) => bd('pruebas')
-.where({'id':id, 'deleted':0})
-.select('nombre_principal','dominio_principal');
 
 const update = (id,obj) => bd('pruebas')
 .where({'id':id})
