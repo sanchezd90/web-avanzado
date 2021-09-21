@@ -10,9 +10,10 @@ conectarDB()
 // lectura -> permite interpretar la peticion en json
 app.use(express.json({extend: true}));
 
+
 //Routes
 app.use('/api/usuarios', require('./routes/Usuarios'))
-
+app.use('/login',require('./routes/auth'))
 
 app.listen(port, () => {
     console.log(`Server en port ${port}`)
