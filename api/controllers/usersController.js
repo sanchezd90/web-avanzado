@@ -1,9 +1,9 @@
 const bcryptjs = require("bcryptjs");
 const { validationResult } = require('express-validator');
-const User = require('../models/User')
+const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
 
-exports.createUser = (req,res) => {
+exports.createUser = async (req,res) => {
     //validar datos ingresados
     const error = validationResult(req);
     if (!error.isEmpty()) {
