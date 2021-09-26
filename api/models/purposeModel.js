@@ -1,25 +1,15 @@
 const mongoose = require('mongoose');
 
-const testSchema = mongoose.Schema({
-    nombre_principal:{
+const purposeSchema = mongoose.Schema({
+    en:{
         type:'string',
         require: true,
         trim: true
     },
-    dominio_principal:{
-        type:'objectId',
+    es:{
+        type:'string',
         require: true,
         trim: true       
-    },
-    ref_publicacion:{
-        type:'objectId',
-        require: true,
-        trim: true,
-        default: null       
-    },
-    ts_update:{
-        type: Date,
-        default: Date.now()
     },
     deleted:{
         type:'string',
@@ -35,4 +25,4 @@ const testSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('Test', testSchema);
+module.exports = mongoose.model('Purpose', purposeSchema);
