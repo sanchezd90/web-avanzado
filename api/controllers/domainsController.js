@@ -1,13 +1,45 @@
+const Domain = require('../models/domainModel')
+const { validationResult } = require('express-validator');
 
-
-const createDomain = (req,res) => {
-    console.log(req.body);
-    res.end();
+const create = async (req,res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(400).json({errores: error.array()})
+    }
+    try{
+      const {en, es} = req.body;        
+        
+        let domain = await Domain.findOne({en});        
+        if (domain) {
+            return res.status(400).json({message : 'This domain is already registered'})
+        }
+        domain = new Domain(req.body);
+        await domain.save()
+        res.status(200).json(domain)
+        
+    }catch(error){
+      console.log(error);
+      res.status(400).send("Domain register error")  
+    }    
 } 
 
-const getAll = (req,res) => {    
-    res.json({msg:'Holas'});
+const getAll = async (req,res) => {
+  try{
+    const all = await Domain.find({});
+    res.status(200).json(all);
+  }catch(error){
+    res.status(500).json({'error':error});
   }
+}
 
+const getSingle = async (req,res) => {
+  const id = req.params.id;
+  try{
+    const domain = await Domain.findById(id);
+    res.status(200).json(domain);
+  }catch(error){
+    res.status(500).json({'error':error});
+  }
+}
 
-module.exports = {createDomain,getAll}
+module.exports = {create,getAll,getSingle}
