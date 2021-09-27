@@ -16,5 +16,15 @@ router.get('/all',
 router.get('/single/:id',
     domainsController.getSingle
 );
+router.post('/update',
+    [
+        check('en','english name is required').not().isEmpty(),
+        check('es','spanish name is required').not().isEmpty(),
+    ],
+    domainsController.update
+);
+router.post('/delete/:id',
+    domainsController.del
+);
 
 module.exports = router;

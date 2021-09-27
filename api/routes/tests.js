@@ -15,6 +15,15 @@ router.get('/all',
 router.get('/single/:id',
     testsController.getSingle
 );
+router.post('/update',
+    [
+        check('nombre_principal','name is required').not().isEmpty()        
+    ],
+    testsController.update
+);
+router.post('/delete/:id',
+    testsController.del
+);
 
 module.exports = router;
 
