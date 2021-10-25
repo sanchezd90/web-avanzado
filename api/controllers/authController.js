@@ -35,8 +35,6 @@ exports.authUser = async (req, res, next) => {
             res.json({ token })
         })
 
-        res.json({msg:'User logged in'})
-
     }catch(err){
         console.log(err);
     }

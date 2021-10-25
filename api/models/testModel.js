@@ -2,17 +2,16 @@ const mongoose = require('mongoose');
 
 const testSchema = mongoose.Schema({
     nombre_principal:{
-        type:'string',
+        type: String,
         require: true,
         trim: true
     },
     dominio_principal:{
-        type:'objectId',
-        require: true,
-        trim: true       
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Domain'      
     },
     ref_publicacion:{
-        type:'objectId',
+        type: String,
         require: true,
         trim: true,
         default: null       

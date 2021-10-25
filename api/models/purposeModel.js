@@ -2,23 +2,23 @@ const mongoose = require('mongoose');
 
 const purposeSchema = mongoose.Schema({
     en:{
-        type:'string',
+        type: String,
         require: true,
         trim: true
     },
     es:{
-        type:'string',
+        type: String,
         require: true,
         trim: true       
     },
     deleted:{
-        type:'string',
+        type: String,
         require: false,
         trim: true,
         default: '0'
     },
     id:{
-        type:'string',
+        type: String,
         require: false,
         trim: true,
         default: '0'

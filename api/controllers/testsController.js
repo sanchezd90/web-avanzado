@@ -60,7 +60,7 @@ const update = async (req,res) => {
       
   }catch(error){
     console.log(error);
-    res.status(400).send("update error")  
+    res.status(500).send("update error")  
   }    
 } 
 
@@ -72,7 +72,7 @@ const del = async (req,res) => {
       
   }catch(error){
     console.log(error);
-    res.status(400).send("delete error")  
+    res.status(500).send("delete error")  
   }    
 } 
 
